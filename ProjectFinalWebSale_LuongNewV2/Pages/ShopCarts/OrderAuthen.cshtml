@@ -1,0 +1,48 @@
+﻿@page
+@model ProjectFinalWebSale_LuongNewV2.Pages.ShopCarts.OrderAuthenModel
+@{
+}
+<h1>Xác nhận thông tin đơn hàng </h1>
+
+<div>
+   
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDetail.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetail.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDetail.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetail.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDetail.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetail.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDetail.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetail.Status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserDetail.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetail.User.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.UserDetail?.Id">Edit</a> 
+ 
+</div>
+
+<a class="btn btn-danger " asp-page="/ShopCarts/OrderAction" > Next </a>

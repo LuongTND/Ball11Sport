@@ -1,0 +1,217 @@
+﻿@page
+@using System.Security.Claims
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@*     if (User.FindFirst(ClaimTypes.Email)?.Value == "Admin1.RogerShop@gmail.com" || User.FindFirst(ClaimTypes.Email)?.Value == "Admin2.RogerShop@gmail.com")
+    { *@
+
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+@*         <div class="carousel-item active">
+            <img src="/images/Banner4.png" class="d-block w-100" alt="...">
+        </div> *@
+        <div class="carousel-item active">
+            <img src="https://theme.hstatic.net/1000061481/1001035882/14/slideshow_3.jpg?v=1427" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="https://theme.hstatic.net/1000061481/1001035882/14/slideshow_2.jpg?v=1427" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="https://theme.hstatic.net/1000061481/1001035882/14/slideshow_1.jpg?v=1427" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="text-center">
+
+            
+            @if (User.Identity.IsAuthenticated)
+    {
+        <h1 class="display-4" style="color:skyblue">Welcome to Roger Shop ⚽</h1>
+
+    }else
+    {
+        <h1 class="display-4" style="color:skyblue">Login and Buy Product ⚽</h1>
+    }
+
+</div>
+<form method="get" class="form-inline">
+    <div class="row">
+
+        <div class="col-md-3 mb-2">
+            <label for="productName">Product Name:</label>
+            <input type="text" class="form-control" name="productName" />
+        </div>
+        <div class="col-md-3 mb-2">
+            <label for="unitPrice">Unit Price:</label>
+            <input type="text" class="form-control" name="unitPrice" />
+        </div>
+
+        <div class="col-md-3 p-4">
+
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a class="link-danger" asp-page="./Index">Back to full List</a>
+        </div>
+
+
+
+
+    </div>
+</form>
+<div class="border-top">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductName)
+            </th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.FindFirst(ClaimTypes.Email)?.Value == "Admin1.RogerShop@gmail.com" || User.FindFirst(ClaimTypes.Email)?.Value == "Admin2.RogerShop@gmail.com")
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product[0].UnitStock)
+                    </th>
+                }
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Images)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Category)
+            </th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.FindFirst(ClaimTypes.Email)?.Value == "Admin1.RogerShop@gmail.com" || User.FindFirst(ClaimTypes.Email)?.Value == "Admin2.RogerShop@gmail.com")
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product[0].User)
+                    </th>
+                }
+            }
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Product)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.FindFirst(ClaimTypes.Email)?.Value == "Admin1.RogerShop@gmail.com" || User.FindFirst(ClaimTypes.Email)?.Value == "Admin2.RogerShop@gmail.com")
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitStock)
+                        </td>
+                    }
+                }
+                
+                <td>
+                  @*   @Html.DisplayFor(modelItem => item.UnitPrice) *@
+                        @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+
+                    <img src="@Html.DisplayFor(modelItem => item.Images)" alt="Product Image" style="width:23rem; height:23rem; text-align:center">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.FindFirst(ClaimTypes.Email)?.Value == "Admin1.RogerShop@gmail.com" || User.FindFirst(ClaimTypes.Email)?.Value == "Admin2.RogerShop@gmail.com")
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Email)
+                        </td>
+                    }
+                }
+                
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.FindFirst(ClaimTypes.Email)?.Value == "Admin1.RogerShop@gmail.com" || User.FindFirst(ClaimTypes.Email)?.Value == "Admin2.RogerShop@gmail.com")
+                        { }
+                        else
+                        {
+                            <button type="button" class="ajax-add-to-cart" asp-page="/ShopCarts/Carts" asp-route-id="@item.ProductId" data-id="@item.ProductId">Add to Cart </button>
+                        }
+
+                    }
+                    else
+                    {
+                        <a type="button" class="btn btn-warning" asp-page="/Authen/Login"> Buy  </a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $(".ajax-add-to-cart").click(function () {
+                $.ajax({
+                    url: "/ShopCarts/Carts",
+                    data: {
+                        id: $(this).data("id"),
+                        SoLuong: 1,
+                        type: "ajax"
+                    },
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thêm giỏ hàng thành công',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        console.log(data.soLuong);
+                        $("#cart_count").html(data.soLuong);
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm giỏ hàng thất bại',
+                            text: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

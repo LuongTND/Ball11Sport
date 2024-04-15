@@ -1,0 +1,23 @@
+﻿@page
+@model ProjectFinalWebSale_LuongNewV2.Pages.ShopCarts.OrderActionModel
+@{
+}
+<h2>Chọn Phương Thức Thanh Toán</h2>
+
+@* <div>
+    <label for="phuongthuc">Chọn phương thức thanh toán:</label>
+    <select id="phuongthuc" name="phuongthuc">
+        <option value="the_tin_dung">Thẻ Tín Dụng</option>
+        <option value="chuyen_khoan">Chuyển Khoản</option>
+        <option value="tien_mat">Tiền Mặt</option>
+    </select>
+</div> *@
+
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">COD Thanh toán khi nhận hàng</button>
+   @*  <button type="submit" name="payment_method" value="vnpay" class="btn btn-primary">Payment VNpay</button> *@
+    
+</form>
+<p>----------------------------------</p>
+<a class="btn btn-info" asp-page="/Payment/VNPay"> PAYMENT VNPAY</a>

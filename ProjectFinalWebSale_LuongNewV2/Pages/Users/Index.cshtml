@@ -1,0 +1,114 @@
+﻿@page
+@using System.Security.Claims
+@model ProjectFinalWebSale_LuongNewV2.Pages.Users.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Account</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.FindFirst(ClaimTypes.Email)?.Value == "Admin1.RogerShop@gmail.com" || User.FindFirst(ClaimTypes.Email)?.Value == "Admin2.RogerShop@gmail.com")
+    {
+        <p>
+            <a asp-page="Create">Create New</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User[0].UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User[0].Password)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User[0].Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User[0].Role)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.User)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Password)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role.RoleName)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.UserId">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.UserId">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.UserId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User[0].UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User[0].Password)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User[0].Email)
+                    </th>
+                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId");
+                    var userId = userIdClaim?.Value;
+                }
+
+                @foreach (var item in Model.User.Where(o => o.UserId.ToString() == userId))
+                {
+                         
+               
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Password)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.UserId">Edit</a> |
+                            <a asp-page="/UserDetails/Details" asp-route-id="@item.UserId">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.UserId">Delete</a> |
+                            <a asp-page="/UserDetails/Create" asp-route-id="@item.UserId">Update Ifnomation</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+
+}
